@@ -1,22 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 
 
 
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
 
 
 
@@ -34,13 +27,70 @@
 
 
 
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
 
 
 
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="kyber,blk-mq," />
 
 
 
@@ -48,31 +98,8 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT" />
-
-
-
-
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
 
 
 
@@ -80,15 +107,16 @@
 
 
 <meta name="description" content="kyber调度器分析 [TOC] kyber调度器基本原理kyber调度器是基于blk-mq运行的，其主要适用于NVMe等固态硬盘，基本设计思路是在每个硬件队列（hctx）上依附分发队列，分发队列会对软件队列下发到hctx上的请求先进行分类，分类按读、同步写、其它三种类型进行分类，分类好后按批次下发，读、同步写、其它的一批次的比例的16：8：8，也就是说在hctx下发请求到设备时，会先发16个读请">
+<meta name="keywords" content="kyber,blk-mq">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/2018/05/11/kyber调度器分析/index.html">
+<meta property="og:title" content="kyber调度器分析">
+<meta property="og:url" content="http://kernel.top/2018/05/11/kyber调度器分析/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="kyber调度器分析 [TOC] kyber调度器基本原理kyber调度器是基于blk-mq运行的，其主要适用于NVMe等固态硬盘，基本设计思路是在每个硬件队列（hctx）上依附分发队列，分发队列会对软件队列下发到hctx上的请求先进行分类，分类按读、同步写、其它三种类型进行分类，分类好后按批次下发，读、同步写、其它的一批次的比例的16：8：8，也就是说在hctx下发请求到设备时，会先发16个读请">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-11T05:22:58.124Z">
+<meta property="og:updated_time" content="2018-05-11T06:40:46.862Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="kyber调度器分析">
 <meta name="twitter:description" content="kyber调度器分析 [TOC] kyber调度器基本原理kyber调度器是基于blk-mq运行的，其主要适用于NVMe等固态硬盘，基本设计思路是在每个硬件队列（hctx）上依附分发队列，分发队列会对软件队列下发到hctx上的请求先进行分类，分类按读、同步写、其它三种类型进行分类，分类好后按批次下发，读、同步写、其它的一批次的比例的16：8：8，也就是说在hctx下发请求到设备时，会先发16个读请">
 
 
@@ -97,14 +125,12 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
     fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    motion: true,
     duoshuo: {
-      userId: '0',
+      userId: 'undefined',
       author: '博主'
     },
     algolia: {
@@ -119,58 +145,158 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/11/kyber调度器分析/"/>
+  <link rel="canonical" href="http://kernel.top/2018/05/11/kyber调度器分析/"/>
 
 
 
 
 
-  <title> | Hexo</title>
-  
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
 
 
-
-
-
-
-
-
+  <title> kyber调度器分析 | Hexo </title>
 </head>
 
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("kJ2sJuSJeByLioULSXrJ5CSq-9Nh9j0Va", "uBWeNxCbFEWsOVDTmAInrDq3");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+  
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
+
+
+
+
+
+
+
+
+
+
+  
   
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
     
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
 
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle"></p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
 </div>
 
 <nav class="site-nav">
@@ -190,12 +316,42 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -227,29 +383,35 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/11/kyber调度器分析/">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://kernel.top/2018/05/11/kyber调度器分析/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="hhtrace">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Hexo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Hexo" src="/images/avatar.jpg">
     </span>
+  </span>
 
     
       <header class="post-header">
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                kyber调度器分析
+              
+            
+          </h2>
         
 
         <div class="post-meta">
@@ -261,7 +423,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T13:20:02+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-11T00:00:00+08:00">
                 2018-05-11
               </time>
             
@@ -272,27 +434,95 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux通用块层/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux通用块层</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
           
 
           
+		  
+			 
+          
+          
+             <span id="/2018/05/11/kyber调度器分析/" class="leancloud_visitors" data-flag-title="kyber调度器分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+		   
           
 
-          
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
 
-          
+              
+                <span class="post-meta-divider">|</span>
+              
 
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
           
+		  
+          
+ 
+        
+
 
         </div>
       </header>
     
 
-    
-    
-    
+
     <div class="post-body" itemprop="articleBody">
 
       
@@ -302,45 +532,90 @@
         <h1 id="kyber调度器分析"><a href="#kyber调度器分析" class="headerlink" title="kyber调度器分析"></a>kyber调度器分析</h1><hr>
 <p>[TOC]</p>
 <h2 id="kyber调度器基本原理"><a href="#kyber调度器基本原理" class="headerlink" title="kyber调度器基本原理"></a>kyber调度器基本原理</h2><p>kyber调度器是基于blk-mq运行的，其主要适用于NVMe等固态硬盘，基本设计思路是在每个硬件队列（hctx）上依附分发队列，分发队列会对软件队列下发到hctx上的请求先进行分类，分类按读、同步写、其它三种类型进行分类，分类好后按批次下发，读、同步写、其它的一批次的比例的16：8：8，也就是说在hctx下发请求到设备时，会先发16个读请求，再发8个同步写请求，再发8个其它请求，依此循环。同时为了保证读、写请求下发的时延可控及公平性，kyber引入了token，在请求下发时，需要拿到一个token才行，读、同步写、其它三种类型的token数量是可变，在操作设备时，token的数量在一定范围里按需加大或建小，具体地，kyber初始化时，会给读、同步写、其它同时分配指定个数的token，并且指定读延时参考值为2000000nsec，写延时参考值为10000000nsec，当读、写请求的延时大于参考值时，Kyber会去调整读、写token的数量来平衡读、写请求的延时，以达到相对公平的目标。</p>
-<p>##kyber调度器重要数据结构及关联</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">kyber_queue_data</span> &#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">request_queue</span> *<span class="title">q</span>;</span>     <span class="comment">// 指向所属请求队列</span></span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">blk_stat_callback</span> *<span class="title">cb</span>;</span>  <span class="comment">// 用于跟踪各请求完成情况  ????</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * The device is divided into multiple scheduling domains based on the</span></span><br><span class="line"><span class="comment">	 * request type. Each domain has a fixed number of in-flight requests of</span></span><br><span class="line"><span class="comment">	 * that type device-wide, limited by these tokens.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sbitmap_queue</span> <span class="title">domain_tokens</span>[<span class="title">KYBER_NUM_DOMAINS</span>];</span>  <span class="comment">// token</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * Async request percentage, converted to per-word depth for</span></span><br><span class="line"><span class="comment">	 * sbitmap_get_shallow().</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> async_depth;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Target latencies in nanoseconds. */</span></span><br><span class="line">	u64 read_lat_nsec, write_lat_nsec;    <span class="comment">// 读、写的延时参考值</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="kyber调度器重要数据结构及关联"><a href="#kyber调度器重要数据结构及关联" class="headerlink" title="kyber调度器重要数据结构及关联"></a>kyber调度器重要数据结构及关联</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">kyber_queue_data</span> &#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">request_queue</span> *<span class="title">q</span>;</span>     <span class="comment">// 指向所属请求队列</span></span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">blk_stat_callback</span> *<span class="title">cb</span>;</span>  <span class="comment">// 用于跟踪各请求完成情况  ????</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * The device is divided into multiple scheduling domains based on the</span></span><br><span class="line"><span class="comment">	 * request type. Each domain has a fixed number of in-flight requests of</span></span><br><span class="line"><span class="comment">	 * that type device-wide, limited by these tokens.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sbitmap_queue</span> <span class="title">domain_tokens</span>[<span class="title">KYBER_NUM_DOMAINS</span>];</span>  <span class="comment">// token</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * Async request percentage, converted to per-word depth for</span></span><br><span class="line"><span class="comment">	 * sbitmap_get_shallow().</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> async_depth;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Target latencies in nanoseconds. */</span></span><br><span class="line">	u64 read_lat_nsec, write_lat_nsec;    <span class="comment">// 读、写的延时参考值</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>kyber_hctx_data从名字上可以看出，该数据结构是依附在hctx上的，具体的其被赋值在hctx-&gt;sched_data上。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">kyber_hctx_data</span> &#123;</span></span><br><span class="line">	<span class="keyword">spinlock_t</span> lock;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">rqs</span>[<span class="title">KYBER_NUM_DOMAINS</span>];</span> <span class="comment">// 上述的分发队列，读、同步写、其它</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> cur_domain; <span class="comment">// 当前正在操作的哪个分发队列(读、同步写、其它)</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> batching;   <span class="comment">// 用于统计当前分发队列共下发几个请求,用于批量下发请求</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 以下三个数据与休眠相关，当token用完了就会休眠等待token释放</span></span><br><span class="line">	<span class="keyword">wait_queue_entry_t</span> domain_wait[KYBER_NUM_DOMAINS];</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sbq_wait_state</span> *<span class="title">domain_ws</span>[<span class="title">KYBER_NUM_DOMAINS</span>];</span></span><br><span class="line">	<span class="keyword">atomic_t</span> wait_index[KYBER_NUM_DOMAINS];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="kyber调度器初始化过程"><a href="#kyber调度器初始化过程" class="headerlink" title="kyber调度器初始化过程"></a>kyber调度器初始化过程</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">kyber_init_sched</span><span class="params">(struct request_queue *q, struct elevator_type *e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kyber_queue_data</span> *<span class="title">kqd</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">elevator_queue</span> *<span class="title">eq</span>;</span></span><br><span class="line"></span><br><span class="line">	eq = elevator_alloc(q, e);</span><br><span class="line"></span><br><span class="line">	kqd = kyber_queue_data_alloc(q);</span><br><span class="line"></span><br><span class="line">	eq-&gt;elevator_data = kqd;</span><br><span class="line">	q-&gt;elevator = eq;</span><br><span class="line"></span><br><span class="line">	blk_stat_add_callback(q, kqd-&gt;cb);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">```cpp</span><br><span class="line"><span class="function"><span class="keyword">static</span> struct kyber_queue_data *<span class="title">kyber_queue_data_alloc</span><span class="params">(struct request_queue *q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kyber_queue_data</span> *<span class="title">kqd</span>;</span></span><br><span class="line">	......</span><br><span class="line">	</span><br><span class="line">	kqd = kmalloc_node(<span class="keyword">sizeof</span>(*kqd), GFP_KERNEL, q-&gt;node);</span><br><span class="line"></span><br><span class="line">	kqd-&gt;q = q;    <span class="comment">// 设置所属request_queue</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 用于跟踪各请求完成情况，目前不太明白，大致猜测其可以得到请求的开始与完成时间</span></span><br><span class="line">	kqd-&gt;cb = blk_stat_alloc_callback(kyber_stat_timer_fn, rq_sched_domain,</span><br><span class="line">					  KYBER_NUM_DOMAINS, kqd);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * The maximum number of tokens for any scheduling domain is at least</span></span><br><span class="line"><span class="comment">	 * the queue depth of a single hardware queue. If the hardware doesn't</span></span><br><span class="line"><span class="comment">	 * have many tags, still provide a reasonable number.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="comment">// 计算需要多少token</span></span><br><span class="line">	max_tokens = <span class="keyword">max_t</span>(<span class="keyword">unsigned</span> <span class="keyword">int</span>, q-&gt;tag_set-&gt;queue_depth,</span><br><span class="line">			   KYBER_MIN_DEPTH);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; KYBER_NUM_DOMAINS; i++) &#123;</span><br><span class="line">		<span class="comment">// 分配token</span></span><br><span class="line">		ret = sbitmap_queue_init_node(&amp;kqd-&gt;domain_tokens[i],</span><br><span class="line">					      max_tokens, <span class="number">-1</span>, <span class="literal">false</span>, GFP_KERNEL,</span><br><span class="line">					      q-&gt;node);</span><br><span class="line">		<span class="keyword">if</span> (ret) &#123; <span class="comment">// 如果分配失败，则释放</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//根据读、同步写、其它来resize token</span></span><br><span class="line">		sbitmap_queue_resize(&amp;kqd-&gt;domain_tokens[i], kyber_depth[i]);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	shift = kyber_sched_tags_shift(kqd);</span><br><span class="line">	kqd-&gt;async_depth = (<span class="number">1U</span> &lt;&lt; shift) * KYBER_ASYNC_PERCENT / <span class="number">100U</span>;  <span class="comment">// 不明白作用</span></span><br><span class="line"></span><br><span class="line">	kqd-&gt;read_lat_nsec = <span class="number">2000000U</span>LL;   <span class="comment">// 设置读 延时参考值</span></span><br><span class="line">	kqd-&gt;write_lat_nsec = <span class="number">10000000U</span>LL;  <span class="comment">// 设置写 延时参考值</span></span><br><span class="line">	......</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">```cpp</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">kyber_init_hctx</span><span class="params">(struct blk_mq_hw_ctx *hctx, <span class="keyword">unsigned</span> <span class="keyword">int</span> hctx_idx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kyber_hctx_data</span> *<span class="title">khd</span>;</span></span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">	khd = kmalloc_node(<span class="keyword">sizeof</span>(*khd), GFP_KERNEL, hctx-&gt;numa_node); <span class="comment">// 分配空间</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 以下代码为初始化khd</span></span><br><span class="line">	spin_lock_init(&amp;khd-&gt;lock);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; KYBER_NUM_DOMAINS; i++) &#123;</span><br><span class="line">		INIT_LIST_HEAD(&amp;khd-&gt;rqs[i]);</span><br><span class="line">		init_waitqueue_func_entry(&amp;khd-&gt;domain_wait[i],</span><br><span class="line">					  kyber_domain_wake); <span class="comment">// 初始化唤醒函数，用于token用完成后睡眠后，待有token释放时所执行函数</span></span><br><span class="line">		khd-&gt;domain_wait[i].<span class="keyword">private</span> = hctx; <span class="comment">// 唤醒函数用于查找khd所属hctx</span></span><br><span class="line">		INIT_LIST_HEAD(&amp;khd-&gt;domain_wait[i].entry);</span><br><span class="line">		atomic_set(&amp;khd-&gt;wait_index[i], <span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	khd-&gt;cur_domain = <span class="number">0</span>;</span><br><span class="line">	khd-&gt;batching = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	hctx-&gt;sched_data = khd; <span class="comment">// 赋值给hctx-&gt;sched_data</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">## 请求经kyber调度器下发过程</span><br><span class="line"></span><br><span class="line">- 请求准备过程</span><br><span class="line">bio在经过blk-mq准备下发时，首先会转化为请求，其中在申请请求时，blk-mq会调用kyber钩子函数kyber_prepare_request，该函数从名字上可以看到设置token为<span class="number">-1</span>，表示该请求还没有分配token</span><br><span class="line">``` cpp</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">kyber_prepare_request</span><span class="params">(struct request *rq, struct bio *bio)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	rq_set_domain_token(rq, <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">- 请求下发过程</span><br><span class="line">当启动kyber调度器，bio首先在blk-mq中转化为request请求，并加入相应的软件队列，在hctx启动准备下发请求，会调用kyber钩子函数kyber_dispatch_request。没有开启动kyber时，hctx直接从ctx上获得待发请求，当开启kyber后，hctx直接在kyber的分发队列上获得待发请求，当分发队列上的待发请求发送后完成，分发队列会直接到ctx上获得待发请求。</span><br><span class="line">``` cpp</span><br><span class="line"><span class="function"><span class="keyword">static</span> struct request *<span class="title">kyber_dispatch_request</span><span class="params">(struct blk_mq_hw_ctx *hctx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kyber_queue_data</span> *<span class="title">kqd</span> = <span class="title">hctx</span>-&gt;<span class="title">queue</span>-&gt;<span class="title">elevator</span>-&gt;<span class="title">elevator_data</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kyber_hctx_data</span> *<span class="title">khd</span> = <span class="title">hctx</span>-&gt;<span class="title">sched_data</span>;</span></span><br><span class="line">	......</span><br><span class="line"></span><br><span class="line">	spin_lock(&amp;khd-&gt;lock);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * First, if we are still entitled to batch, try to dispatch a request</span></span><br><span class="line"><span class="comment">	 * from the batch.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="comment">//如果一批请求还没下发完 读:同步写:其它 = 16:8:8</span></span><br><span class="line">	<span class="keyword">if</span> (khd-&gt;batching &lt; kyber_batch_size[khd-&gt;cur_domain]) &#123;</span><br><span class="line">		rq = kyber_dispatch_cur_domain(kqd, khd, hctx, &amp;flushed); <span class="comment">// 从当前分发队列上拿一个请求出来</span></span><br><span class="line">		<span class="keyword">if</span> (rq) <span class="comment">//如果拿到了就退出</span></span><br><span class="line">			<span class="keyword">goto</span> out;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 如果一批请求下发完成, 或当前分发队列上的请求发送完了, 或token用完</span></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * Either,</span></span><br><span class="line"><span class="comment">	 * 1. We were no longer entitled to a batch.</span></span><br><span class="line"><span class="comment">	 * 2. The domain we were batching didn't have any requests.</span></span><br><span class="line"><span class="comment">	 * 3. The domain we were batching was out of tokens.</span></span><br><span class="line"><span class="comment">	 *</span></span><br><span class="line"><span class="comment">	 * Start another batch. Note that this wraps back around to the original</span></span><br><span class="line"><span class="comment">	 * domain if no other domains have requests or tokens.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	khd-&gt;batching = <span class="number">0</span>; <span class="comment">// 统计清0</span></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; KYBER_NUM_DOMAINS; i++) &#123;</span><br><span class="line">		<span class="comment">// 设置下一批下发的请求是 读 还是 同步写 还是 其它</span></span><br><span class="line">		<span class="keyword">if</span> (khd-&gt;cur_domain == KYBER_NUM_DOMAINS - <span class="number">1</span>)</span><br><span class="line">			khd-&gt;cur_domain = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			khd-&gt;cur_domain++;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 从当前分发队列上拿一个请求出来</span></span><br><span class="line">		rq = kyber_dispatch_cur_domain(kqd, khd, hctx, &amp;flushed);</span><br><span class="line">		<span class="keyword">if</span> (rq) <span class="comment">//如果拿到了就退出</span></span><br><span class="line">			<span class="keyword">goto</span> out;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	rq = <span class="literal">NULL</span>;</span><br><span class="line">out:</span><br><span class="line">	spin_unlock(&amp;khd-&gt;lock);</span><br><span class="line">	<span class="keyword">return</span> rq;</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">kyber_dispatch_cur_domain用于从当前分发队列（读、同步写、其它）上获取一个请求request，如果当前分发队列已空且没有冲刷过ctx，则尝试冲刷一次ctx，再尝试获取请求request</span><br><span class="line">```cpp</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">request</span> *</span></span><br><span class="line"><span class="class"><span class="title">kyber_dispatch_cur_domain</span>(<span class="title">struct</span> <span class="title">kyber_queue_data</span> *<span class="title">kqd</span>,</span></span><br><span class="line"><span class="class">			  <span class="title">struct</span> <span class="title">kyber_hctx_data</span> *<span class="title">khd</span>,</span></span><br><span class="line"><span class="class">			  <span class="title">struct</span> <span class="title">blk_mq_hw_ctx</span> *<span class="title">hctx</span>,</span></span><br><span class="line"><span class="class">			  <span class="title">bool</span> *<span class="title">flushed</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	......</span><br><span class="line">	</span><br><span class="line">	rqs = &amp;khd-&gt;rqs[khd-&gt;cur_domain]; <span class="comment">// 当前分发队列</span></span><br><span class="line">	rq = list_first_entry_or_null(rqs, struct request, queuelist); <span class="comment">// 获取一个请求request</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * If there wasn't already a pending request and we haven't flushed the</span></span><br><span class="line"><span class="comment">	 * software queues yet, flush the software queues and check again.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">if</span> (!rq &amp;&amp; !*flushed) &#123; <span class="comment">// 如果获取失败且没有冲刷过ctx</span></span><br><span class="line">		kyber_flush_busy_ctxs(khd, hctx); <span class="comment">// 冲刷一次ctx</span></span><br><span class="line">		*flushed = <span class="literal">true</span>; <span class="comment">// 设置冲刷过ctx的标志</span></span><br><span class="line">		rq = list_first_entry_or_null(rqs, struct request, queuelist); <span class="comment">// 再次尝试获取一个请求request</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (rq) &#123; <span class="comment">// 如果获取request成功，下一步需要拿到token才能正式向设备下发请求</span></span><br><span class="line">		nr = kyber_get_domain_token(kqd, khd, hctx); <span class="comment">// 获取token</span></span><br><span class="line">		<span class="keyword">if</span> (nr &gt;= <span class="number">0</span>) &#123; <span class="comment">// 如果成功</span></span><br><span class="line">			khd-&gt;batching++; <span class="comment">// 批次数+1</span></span><br><span class="line">			rq_set_domain_token(rq, nr); <span class="comment">//设置该request的token编号，request完成时释放token时需要</span></span><br><span class="line">			list_del_init(&amp;rq-&gt;queuelist); <span class="comment">// 从当前分发队列上删除request</span></span><br><span class="line">			<span class="keyword">return</span> rq; <span class="comment">// 返回该request，准备下发请求</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* There were either no pending requests or no tokens. */</span></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">NULL</span>;  <span class="comment">// 如果在当前分发队列上尝试不到request或拿不到tokens，则反回NULL</span></span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">kyber_flush_busy_ctxs用于冲刷ctx上pending的请求，并且按照读、同步写、其它类型分门别类链入kyber</span><br><span class="line">```cpp</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">kyber_flush_busy_ctxs</span><span class="params">(struct kyber_hctx_data *khd,</span></span></span><br><span class="line"><span class="function"><span class="params">				  struct blk_mq_hw_ctx *hctx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	LIST_HEAD(rq_list);</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">request</span> *<span class="title">rq</span>, *<span class="title">next</span>;</span></span><br><span class="line"></span><br><span class="line">	blk_mq_flush_busy_ctxs(hctx, &amp;rq_list); <span class="comment">// 冲刷ctx，保存在rq_list链表</span></span><br><span class="line">	list_for_each_entry_safe(rq, next, &amp;rq_list, queuelist) &#123; <span class="comment">// 遍历rq_list</span></span><br><span class="line">		<span class="keyword">unsigned</span> <span class="keyword">int</span> sched_domain;</span><br><span class="line"></span><br><span class="line">		sched_domain = rq_sched_domain(rq); <span class="comment">// rq的类型（读、同步写、其它)</span></span><br><span class="line">		list_move_tail(&amp;rq-&gt;queuelist, &amp;khd-&gt;rqs[sched_domain]); <span class="comment">// move到相应的链表（读、同步写、其它)</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">#<span class="meta"># kyber调度器token</span></span><br><span class="line"></span><br><span class="line">token的作用在于平衡设备的读、写。保存设备的读、写都在一个可以接受的范围内，</span><br><span class="line"></span><br><span class="line">在初始化kyber_queue_data时，kyber_queue_data_alloc函数会调用sbitmap_queue_init_node初始化其相关字段<span class="class"><span class="keyword">struct</span> <span class="title">sbitmap_queue</span> <span class="title">domain_tokens</span>[<span class="title">KYBER_NUM_DOMAINS</span>]，从<span class="title">domain_tokens</span>所属结构体及初始化位置可以看出<span class="title">tokens</span>是<span class="title">kyber</span>相关的，而不是与<span class="title">hctx</span>相关的。</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">从初始化可以看出，<span class="title">token</span>以<span class="title">sbitmap</span>的形式存在（<span class="title">sbitmap</span>的分析，见其它文档）</span></span><br><span class="line"><span class="class">```<span class="title">cpp</span></span></span><br><span class="line"><span class="class"><span class="title">sbitmap_queue_init_node</span>(&amp;<span class="title">kqd</span>-&gt;<span class="title">domain_tokens</span>[<span class="title">i</span>], <span class="title">max_tokens</span>, -1, <span class="title">false</span>, <span class="title">GFP_KERNEL</span>, <span class="title">q</span>-&gt;<span class="title">node</span>);</span></span><br></pre></td></tr></table></figure>
+<h2 id="kyber调度器初始化过程"><a href="#kyber调度器初始化过程" class="headerlink" title="kyber调度器初始化过程"></a>kyber调度器初始化过程</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">kyber_init_sched</span><span class="params">(struct request_queue *q, struct elevator_type *e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kyber_queue_data</span> *<span class="title">kqd</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">elevator_queue</span> *<span class="title">eq</span>;</span></span><br><span class="line"></span><br><span class="line">	eq = elevator_alloc(q, e);</span><br><span class="line"></span><br><span class="line">	kqd = kyber_queue_data_alloc(q);</span><br><span class="line"></span><br><span class="line">	eq-&gt;elevator_data = kqd;</span><br><span class="line">	q-&gt;elevator = eq;</span><br><span class="line"></span><br><span class="line">	blk_stat_add_callback(q, kqd-&gt;cb);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>kyber_queue_data_alloc<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> struct kyber_queue_data *<span class="title">kyber_queue_data_alloc</span><span class="params">(struct request_queue *q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kyber_queue_data</span> *<span class="title">kqd</span>;</span></span><br><span class="line">	......</span><br><span class="line">	</span><br><span class="line">	kqd = kmalloc_node(<span class="keyword">sizeof</span>(*kqd), GFP_KERNEL, q-&gt;node);</span><br><span class="line"></span><br><span class="line">	kqd-&gt;q = q;    <span class="comment">// 设置所属request_queue</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 用于跟踪各请求完成情况，目前不太明白，大致猜测其可以得到请求的开始与完成时间</span></span><br><span class="line">	kqd-&gt;cb = blk_stat_alloc_callback(kyber_stat_timer_fn, rq_sched_domain,</span><br><span class="line">					  KYBER_NUM_DOMAINS, kqd);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * The maximum number of tokens for any scheduling domain is at least</span></span><br><span class="line"><span class="comment">	 * the queue depth of a single hardware queue. If the hardware doesn't</span></span><br><span class="line"><span class="comment">	 * have many tags, still provide a reasonable number.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="comment">// 计算需要多少token</span></span><br><span class="line">	max_tokens = <span class="keyword">max_t</span>(<span class="keyword">unsigned</span> <span class="keyword">int</span>, q-&gt;tag_set-&gt;queue_depth,</span><br><span class="line">			   KYBER_MIN_DEPTH);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; KYBER_NUM_DOMAINS; i++) &#123;</span><br><span class="line">		<span class="comment">// 分配token</span></span><br><span class="line">		ret = sbitmap_queue_init_node(&amp;kqd-&gt;domain_tokens[i],</span><br><span class="line">					      max_tokens, <span class="number">-1</span>, <span class="literal">false</span>, GFP_KERNEL,</span><br><span class="line">					      q-&gt;node);</span><br><span class="line">		<span class="keyword">if</span> (ret) &#123; <span class="comment">// 如果分配失败，则释放</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//根据读、同步写、其它来resize token</span></span><br><span class="line">		sbitmap_queue_resize(&amp;kqd-&gt;domain_tokens[i], kyber_depth[i]);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	shift = kyber_sched_tags_shift(kqd);</span><br><span class="line">	kqd-&gt;async_depth = (<span class="number">1U</span> &lt;&lt; shift) * KYBER_ASYNC_PERCENT / <span class="number">100U</span>;  <span class="comment">// 不明白作用</span></span><br><span class="line"></span><br><span class="line">	kqd-&gt;read_lat_nsec = <span class="number">2000000U</span>LL;   <span class="comment">// 设置读 延时参考值</span></span><br><span class="line">	kqd-&gt;write_lat_nsec = <span class="number">10000000U</span>LL;  <span class="comment">// 设置写 延时参考值</span></span><br><span class="line">	......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>kyber_init_hctx<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">kyber_init_hctx</span><span class="params">(struct blk_mq_hw_ctx *hctx, <span class="keyword">unsigned</span> <span class="keyword">int</span> hctx_idx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kyber_hctx_data</span> *<span class="title">khd</span>;</span></span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">	khd = kmalloc_node(<span class="keyword">sizeof</span>(*khd), GFP_KERNEL, hctx-&gt;numa_node); <span class="comment">// 分配空间</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 以下代码为初始化khd</span></span><br><span class="line">	spin_lock_init(&amp;khd-&gt;lock);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; KYBER_NUM_DOMAINS; i++) &#123;</span><br><span class="line">		INIT_LIST_HEAD(&amp;khd-&gt;rqs[i]);</span><br><span class="line">		init_waitqueue_func_entry(&amp;khd-&gt;domain_wait[i],</span><br><span class="line">					  kyber_domain_wake); <span class="comment">// 初始化唤醒函数，用于token用完成后睡眠后，待有token释放时所执行函数</span></span><br><span class="line">		khd-&gt;domain_wait[i].<span class="keyword">private</span> = hctx; <span class="comment">// 唤醒函数用于查找khd所属hctx</span></span><br><span class="line">		INIT_LIST_HEAD(&amp;khd-&gt;domain_wait[i].entry);</span><br><span class="line">		atomic_set(&amp;khd-&gt;wait_index[i], <span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	khd-&gt;cur_domain = <span class="number">0</span>;</span><br><span class="line">	khd-&gt;batching = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	hctx-&gt;sched_data = khd; <span class="comment">// 赋值给hctx-&gt;sched_data</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="请求经kyber调度器下发过程"><a href="#请求经kyber调度器下发过程" class="headerlink" title="请求经kyber调度器下发过程"></a>请求经kyber调度器下发过程</h2><ul>
+<li><p>请求准备过程<br>bio在经过blk-mq准备下发时，首先会转化为请求，其中在申请请求时，blk-mq会调用kyber钩子函数kyber_prepare_request，该函数从名字上可以看到设置token为-1，表示该请求还没有分配token</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">kyber_prepare_request</span><span class="params">(struct request *rq, struct bio *bio)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	rq_set_domain_token(rq, <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>请求下发过程<br>当启动kyber调度器，bio首先在blk-mq中转化为request请求，并加入相应的软件队列，在hctx启动准备下发请求，会调用kyber钩子函数kyber_dispatch_request。没有开启动kyber时，hctx直接从ctx上获得待发请求，当开启kyber后，hctx直接在kyber的分发队列上获得待发请求，当分发队列上的待发请求发送后完成，分发队列会直接到ctx上获得待发请求。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> struct request *<span class="title">kyber_dispatch_request</span><span class="params">(struct blk_mq_hw_ctx *hctx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kyber_queue_data</span> *<span class="title">kqd</span> = <span class="title">hctx</span>-&gt;<span class="title">queue</span>-&gt;<span class="title">elevator</span>-&gt;<span class="title">elevator_data</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kyber_hctx_data</span> *<span class="title">khd</span> = <span class="title">hctx</span>-&gt;<span class="title">sched_data</span>;</span></span><br><span class="line">	......</span><br><span class="line"></span><br><span class="line">	spin_lock(&amp;khd-&gt;lock);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * First, if we are still entitled to batch, try to dispatch a request</span></span><br><span class="line"><span class="comment">	 * from the batch.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="comment">//如果一批请求还没下发完 读:同步写:其它 = 16:8:8</span></span><br><span class="line">	<span class="keyword">if</span> (khd-&gt;batching &lt; kyber_batch_size[khd-&gt;cur_domain]) &#123;</span><br><span class="line">		rq = kyber_dispatch_cur_domain(kqd, khd, hctx, &amp;flushed); <span class="comment">// 从当前分发队列上拿一个请求出来</span></span><br><span class="line">		<span class="keyword">if</span> (rq) <span class="comment">//如果拿到了就退出</span></span><br><span class="line">			<span class="keyword">goto</span> out;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 如果一批请求下发完成, 或当前分发队列上的请求发送完了, 或token用完</span></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * Either,</span></span><br><span class="line"><span class="comment">	 * 1. We were no longer entitled to a batch.</span></span><br><span class="line"><span class="comment">	 * 2. The domain we were batching didn't have any requests.</span></span><br><span class="line"><span class="comment">	 * 3. The domain we were batching was out of tokens.</span></span><br><span class="line"><span class="comment">	 *</span></span><br><span class="line"><span class="comment">	 * Start another batch. Note that this wraps back around to the original</span></span><br><span class="line"><span class="comment">	 * domain if no other domains have requests or tokens.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	khd-&gt;batching = <span class="number">0</span>; <span class="comment">// 统计清0</span></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; KYBER_NUM_DOMAINS; i++) &#123;</span><br><span class="line">		<span class="comment">// 设置下一批下发的请求是 读 还是 同步写 还是 其它</span></span><br><span class="line">		<span class="keyword">if</span> (khd-&gt;cur_domain == KYBER_NUM_DOMAINS - <span class="number">1</span>)</span><br><span class="line">			khd-&gt;cur_domain = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			khd-&gt;cur_domain++;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 从当前分发队列上拿一个请求出来</span></span><br><span class="line">		rq = kyber_dispatch_cur_domain(kqd, khd, hctx, &amp;flushed);</span><br><span class="line">		<span class="keyword">if</span> (rq) <span class="comment">//如果拿到了就退出</span></span><br><span class="line">			<span class="keyword">goto</span> out;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	rq = <span class="literal">NULL</span>;</span><br><span class="line">out:</span><br><span class="line">	spin_unlock(&amp;khd-&gt;lock);</span><br><span class="line">	<span class="keyword">return</span> rq;</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">kyber_dispatch_cur_domain用于从当前分发队列（读、同步写、其它）上获取一个请求request，如果当前分发队列已空且没有冲刷过ctx，则尝试冲刷一次ctx，再尝试获取请求request</span><br><span class="line">```cpp</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">request</span> *</span></span><br><span class="line"><span class="class"><span class="title">kyber_dispatch_cur_domain</span>(<span class="title">struct</span> <span class="title">kyber_queue_data</span> *<span class="title">kqd</span>,</span></span><br><span class="line"><span class="class">			  <span class="title">struct</span> <span class="title">kyber_hctx_data</span> *<span class="title">khd</span>,</span></span><br><span class="line"><span class="class">			  <span class="title">struct</span> <span class="title">blk_mq_hw_ctx</span> *<span class="title">hctx</span>,</span></span><br><span class="line"><span class="class">			  <span class="title">bool</span> *<span class="title">flushed</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	......</span><br><span class="line">	</span><br><span class="line">	rqs = &amp;khd-&gt;rqs[khd-&gt;cur_domain]; <span class="comment">// 当前分发队列</span></span><br><span class="line">	rq = list_first_entry_or_null(rqs, struct request, queuelist); <span class="comment">// 获取一个请求request</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * If there wasn't already a pending request and we haven't flushed the</span></span><br><span class="line"><span class="comment">	 * software queues yet, flush the software queues and check again.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">if</span> (!rq &amp;&amp; !*flushed) &#123; <span class="comment">// 如果获取失败且没有冲刷过ctx</span></span><br><span class="line">		kyber_flush_busy_ctxs(khd, hctx); <span class="comment">// 冲刷一次ctx</span></span><br><span class="line">		*flushed = <span class="literal">true</span>; <span class="comment">// 设置冲刷过ctx的标志</span></span><br><span class="line">		rq = list_first_entry_or_null(rqs, struct request, queuelist); <span class="comment">// 再次尝试获取一个请求request</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (rq) &#123; <span class="comment">// 如果获取request成功，下一步需要拿到token才能正式向设备下发请求</span></span><br><span class="line">		nr = kyber_get_domain_token(kqd, khd, hctx); <span class="comment">// 获取token</span></span><br><span class="line">		<span class="keyword">if</span> (nr &gt;= <span class="number">0</span>) &#123; <span class="comment">// 如果成功</span></span><br><span class="line">			khd-&gt;batching++; <span class="comment">// 批次数+1</span></span><br><span class="line">			rq_set_domain_token(rq, nr); <span class="comment">//设置该request的token编号，request完成时释放token时需要</span></span><br><span class="line">			list_del_init(&amp;rq-&gt;queuelist); <span class="comment">// 从当前分发队列上删除request</span></span><br><span class="line">			<span class="keyword">return</span> rq; <span class="comment">// 返回该request，准备下发请求</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* There were either no pending requests or no tokens. */</span></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">NULL</span>;  <span class="comment">// 如果在当前分发队列上尝试不到request或拿不到tokens，则反回NULL</span></span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">kyber_flush_busy_ctxs用于冲刷ctx上pending的请求，并且按照读、同步写、其它类型分门别类链入kyber</span><br><span class="line">```cpp</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">kyber_flush_busy_ctxs</span><span class="params">(struct kyber_hctx_data *khd,</span></span></span><br><span class="line"><span class="function"><span class="params">				  struct blk_mq_hw_ctx *hctx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	LIST_HEAD(rq_list);</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">request</span> *<span class="title">rq</span>, *<span class="title">next</span>;</span></span><br><span class="line"></span><br><span class="line">	blk_mq_flush_busy_ctxs(hctx, &amp;rq_list); <span class="comment">// 冲刷ctx，保存在rq_list链表</span></span><br><span class="line">	list_for_each_entry_safe(rq, next, &amp;rq_list, queuelist) &#123; <span class="comment">// 遍历rq_list</span></span><br><span class="line">		<span class="keyword">unsigned</span> <span class="keyword">int</span> sched_domain;</span><br><span class="line"></span><br><span class="line">		sched_domain = rq_sched_domain(rq); <span class="comment">// rq的类型（读、同步写、其它)</span></span><br><span class="line">		list_move_tail(&amp;rq-&gt;queuelist, &amp;khd-&gt;rqs[sched_domain]); <span class="comment">// move到相应的链表（读、同步写、其它)</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">#<span class="meta"># kyber调度器token</span></span><br><span class="line"></span><br><span class="line">token的作用在于平衡设备的读、写。保存设备的读、写都在一个可以接受的范围内，</span><br><span class="line"></span><br><span class="line">在初始化kyber_queue_data时，kyber_queue_data_alloc函数会调用sbitmap_queue_init_node初始化其相关字段<span class="class"><span class="keyword">struct</span> <span class="title">sbitmap_queue</span> <span class="title">domain_tokens</span>[<span class="title">KYBER_NUM_DOMAINS</span>]，从<span class="title">domain_tokens</span>所属结构体及初始化位置可以看出<span class="title">tokens</span>是<span class="title">kyber</span>相关的，而不是与<span class="title">hctx</span>相关的。</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">从初始化可以看出，<span class="title">token</span>以<span class="title">sbitmap</span>的形式存在（<span class="title">sbitmap</span>的分析，见其它文档）</span></span><br><span class="line"><span class="class">```<span class="title">cpp</span></span></span><br><span class="line"><span class="class"><span class="title">sbitmap_queue_init_node</span>(&amp;<span class="title">kqd</span>-&gt;<span class="title">domain_tokens</span>[<span class="title">i</span>], <span class="title">max_tokens</span>, -1, <span class="title">false</span>, <span class="title">GFP_KERNEL</span>, <span class="title">q</span>-&gt;<span class="title">node</span>);</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <p>当有request请求需要下发时，在kyber_dispatch_cur_domain函数中可以看出，会先调用kyber_get_domain_token函数获取一个token，如果没有获取成功，request是不能进行下发设备的。另外从kyber_get_domain_token函数可以得知，当获取token失败时，会加入一个等待列表，当有token释放时，会去唤醒等待列表。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">kyber_get_domain_token</span><span class="params">(struct kyber_queue_data *kqd,</span></span></span><br><span class="line"><span class="function"><span class="params">				  struct kyber_hctx_data *khd,</span></span></span><br><span class="line"><span class="function"><span class="params">				  struct blk_mq_hw_ctx *hctx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> sched_domain = khd-&gt;cur_domain;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sbitmap_queue</span> *<span class="title">domain_tokens</span> = &amp;<span class="title">kqd</span>-&gt;<span class="title">domain_tokens</span>[<span class="title">sched_domain</span>];</span></span><br><span class="line">	<span class="keyword">wait_queue_entry_t</span> *wait = &amp;khd-&gt;domain_wait[sched_domain];</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sbq_wait_state</span> *<span class="title">ws</span>;</span></span><br><span class="line">	<span class="keyword">int</span> nr;</span><br><span class="line"></span><br><span class="line">	nr = __sbitmap_queue_get(domain_tokens); <span class="comment">// 获取token</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * If we failed to get a domain token, make sure the hardware queue is</span></span><br><span class="line"><span class="comment">	 * run when one becomes available. Note that this is serialized on</span></span><br><span class="line"><span class="comment">	 * khd-&gt;lock, but we still need to be careful about the waker.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">if</span> (nr &lt; <span class="number">0</span> &amp;&amp; list_empty_careful(&amp;wait-&gt;entry)) &#123; <span class="comment">// 如果没有获取成功，且当前wait没有加入等待列表</span></span><br><span class="line">		ws = sbq_wait_ptr(domain_tokens,</span><br><span class="line">				  &amp;khd-&gt;wait_index[sched_domain]);</span><br><span class="line">		khd-&gt;domain_ws[sched_domain] = ws;</span><br><span class="line">		add_wait_queue(&amp;ws-&gt;wait, wait); <span class="comment">// wait加入等待列表</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		 * Try again in case a token was freed before we got on the wait</span></span><br><span class="line"><span class="comment">		 * queue.</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		nr = __sbitmap_queue_get(domain_tokens); <span class="comment">// 再次尝试获取，看看是否有token释放</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * If we got a token while we were on the wait queue, remove ourselves</span></span><br><span class="line"><span class="comment">	 * from the wait queue to ensure that all wake ups make forward</span></span><br><span class="line"><span class="comment">	 * progress. It's possible that the waker already deleted the entry</span></span><br><span class="line"><span class="comment">	 * between the !list_empty_careful() check and us grabbing the lock, but</span></span><br><span class="line"><span class="comment">	 * list_del_init() is okay with that.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">if</span> (nr &gt;= <span class="number">0</span> &amp;&amp; !list_empty_careful(&amp;wait-&gt;entry)) &#123; <span class="comment">// 如是加入等待列表后又获取到了token</span></span><br><span class="line">		ws = khd-&gt;domain_ws[sched_domain];</span><br><span class="line">		spin_lock_irq(&amp;ws-&gt;wait.lock);</span><br><span class="line">		list_del_init(&amp;wait-&gt;entry); <span class="comment">// 从等待列表内删除</span></span><br><span class="line">		spin_unlock_irq(&amp;ws-&gt;wait.lock);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> nr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>什么时候token会被释放呢？当然是当request请求完成时，kyber_finish_request就是request请求完成时的回调函数<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">kyber_finish_request</span><span class="params">(struct request *rq)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kyber_queue_data</span> *<span class="title">kqd</span> = <span class="title">rq</span>-&gt;<span class="title">q</span>-&gt;<span class="title">elevator</span>-&gt;<span class="title">elevator_data</span>;</span></span><br><span class="line"></span><br><span class="line">	rq_clear_domain_token(kqd, rq);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">rq_clear_domain_token</span><span class="params">(struct kyber_queue_data *kqd,</span></span></span><br><span class="line"><span class="function"><span class="params">				  struct request *rq)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> sched_domain;</span><br><span class="line">	<span class="keyword">int</span> nr;</span><br><span class="line"></span><br><span class="line">	nr = rq_get_domain_token(rq); <span class="comment">// 获取token编号</span></span><br><span class="line">	<span class="keyword">if</span> (nr != <span class="number">-1</span>) &#123;</span><br><span class="line">		sched_domain = rq_sched_domain(rq); <span class="comment">// 查找request属于哪个类型</span></span><br><span class="line">		sbitmap_queue_clear(&amp;kqd-&gt;domain_tokens[sched_domain], nr,</span><br><span class="line">				    rq-&gt;mq_ctx-&gt;cpu); <span class="comment">// 释放token，也就是sbitmap的位清零</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sbitmap_queue_clear</span><span class="params">(struct sbitmap_queue *sbq, <span class="keyword">unsigned</span> <span class="keyword">int</span> nr,</span></span></span><br><span class="line"><span class="function"><span class="params">			 <span class="keyword">unsigned</span> <span class="keyword">int</span> cpu)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	sbitmap_clear_bit(&amp;sbq-&gt;sb, nr); <span class="comment">// 位清零</span></span><br><span class="line">	sbq_wake_up(sbq); <span class="comment">// 唤醒</span></span><br><span class="line">	<span class="keyword">if</span> (likely(!sbq-&gt;round_robin &amp;&amp; nr &lt; sbq-&gt;sb.depth))</span><br><span class="line">		*per_cpu_ptr(sbq-&gt;alloc_hint, cpu) = nr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sbitmap_queue_clear<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sbitmap_queue_clear</span><span class="params">(struct sbitmap_queue *sbq, <span class="keyword">unsigned</span> <span class="keyword">int</span> nr,</span></span></span><br><span class="line"><span class="function"><span class="params">			 <span class="keyword">unsigned</span> <span class="keyword">int</span> cpu)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	sbitmap_clear_bit(&amp;sbq-&gt;sb, nr); <span class="comment">// 位清零</span></span><br><span class="line">	sbq_wake_up(sbq); <span class="comment">// 唤醒</span></span><br><span class="line">	<span class="keyword">if</span> (likely(!sbq-&gt;round_robin &amp;&amp; nr &lt; sbq-&gt;sb.depth))</span><br><span class="line">		*per_cpu_ptr(sbq-&gt;alloc_hint, cpu) = nr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>下面我们看看唤醒后调用的回调函数kyber_domain_wake，该函数在kyber_init_hctx初始化函数中设置。kyber_domain_wake比较简单，直到调用blk-mq的blk_mq_run_hw_queue函数来启动硬件队列即可。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">kyber_domain_wake</span><span class="params">(<span class="keyword">wait_queue_entry_t</span> *wait, <span class="keyword">unsigned</span> mode, <span class="keyword">int</span> flags,</span></span></span><br><span class="line"><span class="function"><span class="params">			     <span class="keyword">void</span> *key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">blk_mq_hw_ctx</span> *<span class="title">hctx</span> = <span class="title">READ_ONCE</span>(<span class="title">wait</span>-&gt;<span class="title">private</span>);</span> <span class="comment">// 所属硬件队列hctx</span></span><br><span class="line"></span><br><span class="line">	list_del_init(&amp;wait-&gt;entry); <span class="comment">//  从等待列表内删除</span></span><br><span class="line">	blk_mq_run_hw_queue(hctx, <span class="literal">true</span>); <span class="comment">// 启动相应硬件队列，true表示yibu</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>
       
     </div>
-    
-    
-    
 
-    
+    <div>
+      
+        
 
-    
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/kyber/" rel="tag"># kyber</a>
+          
+            <a href="/tags/blk-mq/" rel="tag"># blk-mq</a>
+          
+        </div>
+      
 
-    
+
+    <div>
+      
+        
+
+      
+    </div>
+
 
     <footer class="post-footer">
+        
+     <div>    
       
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 hhtrace 的个人博客">hhtrace</a>
+        </li>
 
-      
-      
-      
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://kernel.top/2018/05/11/kyber调度器分析/" title="kyber调度器分析">kyber调度器分析</a>
+        </li>
 
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://kernel.top/2018/05/11/kyber调度器分析/" title="kyber调度器分析">http://kernel.top/2018/05/11/kyber调度器分析/</a>
+        </li>
+
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2018年5月11日 - 00时05分
+        </li>  
+
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 hhtrace 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> </br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>  
       
 
       
       
     </footer>
-  </div>
-  
-  
-  
   </article>
 
 
@@ -350,15 +625,15 @@
     </div>
   </div>
 
-
+          
           </div>
           
 
 
           
-
-  
-
+  <div class="comments" id="comments">
+    
+  </div>
 
 
         </div>
@@ -374,62 +649,75 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
             文章目录
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          <li class="sidebar-nav-overview" data-target="site-overview">
             站点概览
           </li>
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">John Doe</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="hhtrace" />
+          <p class="site-author-name" itemprop="name">hhtrace</p>
+          <p class="site-description motion-element" itemprop="description"></p>
         </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
       </section>
 
       
@@ -442,14 +730,12 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#kyber调度器分析"><span class="nav-number">1.</span> <span class="nav-text">kyber调度器分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#kyber调度器基本原理"><span class="nav-number">1.1.</span> <span class="nav-text">kyber调度器基本原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kyber调度器初始化过程"><span class="nav-number">1.2.</span> <span class="nav-text">kyber调度器初始化过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#kyber调度器分析"><span class="nav-number">1.</span> <span class="nav-text">kyber调度器分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#kyber调度器基本原理"><span class="nav-number">1.1.</span> <span class="nav-text">kyber调度器基本原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kyber调度器重要数据结构及关联"><span class="nav-number">1.2.</span> <span class="nav-text">kyber调度器重要数据结构及关联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kyber调度器初始化过程"><span class="nav-number">1.3.</span> <span class="nav-text">kyber调度器初始化过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求经kyber调度器下发过程"><span class="nav-number">1.4.</span> <span class="nav-text">请求经kyber调度器下发过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
 
           </div>
         </section>
       <!--/noindex-->
-      
-
       
 
     </div>
@@ -462,34 +748,47 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
-
+        <div class="copyright" >
   
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hhtrace</span>
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
 
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>| Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+</div>
 
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
 
 
         
 
+<div class="busuanzi-count">
 
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
 
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
 
 
 
@@ -497,15 +796,9 @@
       </div>
     </footer>
 
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
   </div>
 
   
@@ -529,78 +822,52 @@
 
 
 
-
-
-
-
-
-
-
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
 
   
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
 
   
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
 
   
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
 
   
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
 
   
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
 
 
 
   
   
 
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
 
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
   
+
 
 
   
@@ -622,28 +889,16 @@
 
   
 
-
-
-
-
-
-
-
-
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
 
 
 
   
 
-
-
-
-
-  
-
-  
-
-  
 
   
   
@@ -653,6 +908,133 @@
   
 
   
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kJ2sJuSJeByLioULSXrJ5CSq-9Nh9j0Va", "uBWeNxCbFEWsOVDTmAInrDq3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
 
 </body>
 </html>
