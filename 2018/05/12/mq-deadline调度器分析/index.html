@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="blk-mq,mq-deadline," />
+  <meta name="keywords" content="mq-deadline,blk-mq," />
 
 
 
@@ -80,11 +80,11 @@
 
 
 <meta name="description" content="mq-deadline调度器分析 [TOC] mq-deadline简介mq-deadline的整休设置思路的传统的deadline基本一致，说白了就是把传统的deadline加上了blk-mq向处提供的调器度接口。mq-deadline的实现代码起码有80%以上是与传统的deadline一模一样的，本文着重分析进入blk-mq的bio是如何在mq-deadline流入流出及blk-mq是怎么调用">
-<meta name="keywords" content="blk-mq,mq-deadline">
+<meta name="keywords" content="mq-deadline,blk-mq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mq-deadline调度器分析">
 <meta property="og:url" content="http://kernel.top/2018/05/12/mq-deadline调度器分析/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="kernel">
 <meta property="og:description" content="mq-deadline调度器分析 [TOC] mq-deadline简介mq-deadline的整休设置思路的传统的deadline基本一致，说白了就是把传统的deadline加上了blk-mq向处提供的调器度接口。mq-deadline的实现代码起码有80%以上是与传统的deadline一模一样的，本文着重分析进入blk-mq的bio是如何在mq-deadline流入流出及blk-mq是怎么调用">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-05-12T07:30:40.835Z">
@@ -126,7 +126,7 @@
 
 
 
-  <title>mq-deadline调度器分析 | Hexo</title>
+  <title>mq-deadline调度器分析 | kernel</title>
   
 
 
@@ -160,7 +160,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">kernel</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -266,7 +266,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="kernel">
     </span>
 
     
@@ -420,9 +420,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/blk-mq/" rel="tag"># blk-mq</a>
-          
             <a href="/tags/mq-deadline/" rel="tag"># mq-deadline</a>
+          
+            <a href="/tags/blk-mq/" rel="tag"># blk-mq</a>
           
         </div>
       
@@ -510,7 +510,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">hhtrace</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">just a little change</p>
           </div>
 
           <nav class="site-state motion-element">

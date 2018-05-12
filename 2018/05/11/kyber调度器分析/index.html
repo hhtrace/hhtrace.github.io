@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="kyber,blk-mq," />
+  <meta name="keywords" content="blk-mq,kyber," />
 
 
 
@@ -80,11 +80,11 @@
 
 
 <meta name="description" content="kyber调度器分析 [TOC] kyber调度器基本原理kyber调度器是基于blk-mq运行的，其主要适用于NVMe等固态硬盘，基本设计思路是在每个硬件队列（hctx）上依附分发队列，分发队列会对软件队列下发到hctx上的请求先进行分类，分类按读、同步写、其它三种类型进行分类，分类好后按批次下发，读、同步写、其它的一批次的比例的16：8：8，也就是说在hctx下发请求到设备时，会先发16个读请">
-<meta name="keywords" content="kyber,blk-mq">
+<meta name="keywords" content="blk-mq,kyber">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kyber调度器分析">
 <meta property="og:url" content="http://kernel.top/2018/05/11/kyber调度器分析/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="kernel">
 <meta property="og:description" content="kyber调度器分析 [TOC] kyber调度器基本原理kyber调度器是基于blk-mq运行的，其主要适用于NVMe等固态硬盘，基本设计思路是在每个硬件队列（hctx）上依附分发队列，分发队列会对软件队列下发到hctx上的请求先进行分类，分类按读、同步写、其它三种类型进行分类，分类好后按批次下发，读、同步写、其它的一批次的比例的16：8：8，也就是说在hctx下发请求到设备时，会先发16个读请">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-05-11T07:17:39.837Z">
@@ -126,7 +126,7 @@
 
 
 
-  <title>kyber调度器分析 | Hexo</title>
+  <title>kyber调度器分析 | kernel</title>
   
 
 
@@ -160,7 +160,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">kernel</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -266,7 +266,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="kernel">
     </span>
 
     
@@ -401,9 +401,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/kyber/" rel="tag"># kyber</a>
-          
             <a href="/tags/blk-mq/" rel="tag"># blk-mq</a>
+          
+            <a href="/tags/kyber/" rel="tag"># kyber</a>
           
         </div>
       
@@ -491,7 +491,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">hhtrace</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">just a little change</p>
           </div>
 
           <nav class="site-state motion-element">
