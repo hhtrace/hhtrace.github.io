@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="blk-mq,kyber," />
+  <meta name="keywords" content="kyber,blk-mq," />
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="kyber调度器分析 [TOC] kyber调度器基本原理kyber调度器是基于blk-mq运行的，其主要适用于NVMe等固态硬盘，基本设计思路是在每个硬件队列（hctx）上依附分发队列，分发队列会对软件队列下发到hctx上的请求先进行分类，分类按读、同步写、其它三种类型进行分类，分类好后按批次下发，读、同步写、其它的一批次的比例的16：8：8，也就是说在hctx下发请求到设备时，会先发16个读请">
-<meta name="keywords" content="blk-mq,kyber">
+<meta name="keywords" content="kyber,blk-mq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kyber调度器分析">
 <meta property="og:url" content="http://kernel.top/2018/05/11/kyber调度器分析/index.html">
@@ -401,9 +401,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/blk-mq/" rel="tag"># blk-mq</a>
-          
             <a href="/tags/kyber/" rel="tag"># kyber</a>
+          
+            <a href="/tags/blk-mq/" rel="tag"># blk-mq</a>
           
         </div>
       
@@ -501,7 +501,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
