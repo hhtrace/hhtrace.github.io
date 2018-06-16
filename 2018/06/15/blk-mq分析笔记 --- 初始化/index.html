@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="一、blk-mq分析笔记 — 初始化blk-mq的分析采用从下而上的方式，以null_blk驱动为切入点进入分析  [TOC] 1、怎样使用blk-mq框架来编写块设备驱动以null_blk为例：1、register_blkdev2、准备好struct blk_mq_tag_set，与驱动相关的部分3、调用blk_mq_alloc_tag_set对第2步中准备好的blk_mq_tag_set进行检">
+<meta name="description" content="blk-mq的初始化分析采用从下而上的方式，以null_blk驱动为切入点进入分析">
 <meta name="keywords" content="blk-mq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="blk-mq分析笔记 --- 初始化">
 <meta property="og:url" content="http://kernel.top/2018/06/15/blk-mq分析笔记 --- 初始化/index.html">
 <meta property="og:site_name" content="kernel">
-<meta property="og:description" content="一、blk-mq分析笔记 — 初始化blk-mq的分析采用从下而上的方式，以null_blk驱动为切入点进入分析  [TOC] 1、怎样使用blk-mq框架来编写块设备驱动以null_blk为例：1、register_blkdev2、准备好struct blk_mq_tag_set，与驱动相关的部分3、调用blk_mq_alloc_tag_set对第2步中准备好的blk_mq_tag_set进行检">
+<meta property="og:description" content="blk-mq的初始化分析采用从下而上的方式，以null_blk驱动为切入点进入分析">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-16T13:19:59.457Z">
+<meta property="og:updated_time" content="2018-06-16T13:22:29.761Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="blk-mq分析笔记 --- 初始化">
-<meta name="twitter:description" content="一、blk-mq分析笔记 — 初始化blk-mq的分析采用从下而上的方式，以null_blk驱动为切入点进入分析  [TOC] 1、怎样使用blk-mq框架来编写块设备驱动以null_blk为例：1、register_blkdev2、准备好struct blk_mq_tag_set，与驱动相关的部分3、调用blk_mq_alloc_tag_set对第2步中准备好的blk_mq_tag_set进行检">
+<meta name="twitter:description" content="blk-mq的初始化分析采用从下而上的方式，以null_blk驱动为切入点进入分析">
 
 
 
@@ -331,6 +331,10 @@
 
           
 
+          
+              <div class="post-description">
+                  blk-mq的初始化分析采用从下而上的方式，以null_blk驱动为切入点进入分析
+              </div>
           
 
         </div>
